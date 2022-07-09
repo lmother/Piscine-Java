@@ -16,6 +16,7 @@ public class Program {
             list.getUserById(45);
         }
         catch (Exception exception){
+            System.out.println(exception.getClass());
             System.out.println("Error. No user ID!!!");
         }
 
@@ -24,6 +25,10 @@ public class Program {
         }
         catch (Exception exception){
             System.out.println("Error. No user with this index");
+        }
+
+        for (int i = 0; i < list.getNumberOfUsers(); i++) {
+            System.out.println(list.getUserByIndex(i).getName());
         }
 
     }
