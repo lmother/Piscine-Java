@@ -1,25 +1,22 @@
 package day01.ex03;
-
-import day01.ex00.User;
-
 import java.util.UUID;
 
 public class Transaction {
-    private UUID id;
+    private String id;
     private User inCome;
     private User outCome;
     private TransferCategory category;
     private Integer amount;
 
     public Transaction(UUID id, User inCome, User outCome, TransferCategory category, Integer amount) {
-        this.id = id;
+        this.id = id.toString();
         this.inCome = inCome;
         this.outCome = outCome;
         this.category = category;
         setAmount(amount);
     }
 
-    public UUID getId(){
+    public String getId(){
         return id;
     }
 
@@ -39,7 +36,7 @@ public class Transaction {
         return amount;
     }
 
-    public void setId(UUID id){
+    public void setId(String id){
         this.id = id;
     }
 
@@ -67,6 +64,4 @@ public class Transaction {
     public enum TransferCategory {
         IN, OUT
     }
-
-
 }

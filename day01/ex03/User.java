@@ -1,7 +1,5 @@
 package day01.ex03;
 
-import day01.ex02.UserIdsGenerator;
-
 public class User {
     private String  name;
     private Integer balance;
@@ -16,6 +14,7 @@ public class User {
         this.name = name;
         setBalance(balance);
         this.id = UserIdsGenerator.getInstance().generatedId();
+        transactions = new TransactionsLinkedList();
     }
 
     public String getName() {
@@ -29,6 +28,8 @@ public class User {
     public Integer getId() {
         return id;
     }
+
+    public TransactionsList getTransactions() { return transactions; }
 
     public void setName(String name) {
         this.name = name;

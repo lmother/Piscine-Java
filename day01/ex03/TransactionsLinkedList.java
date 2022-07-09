@@ -1,36 +1,81 @@
 package day01.ex03;
 
-import java.util.UUID;
-
 public class TransactionsLinkedList implements TransactionsList {
-    private Node head;
-    private Node tail;
+    private Node    head;
+    private Node    last;
     private Integer size;
 
-
     private class Node {
+        private Node prev;
         private Transaction val;
         private Node next;
-        private Node prev;
-        public Node (Transaction val, Node prev, Node next) {
-            this.val = val;
+        public Node (Node prev, Transaction val, Node next) {
             this.prev = prev;
+            this.val = val;
             this.next = next;
         }
     }
 
     @Override
-    public void addTransaction(Transaction transaction) {
-
+    public Integer addTransaction(Transaction val) {
+        Node tmp = this.last;
+        Node newNode = new Node(tmp, val, null);
+        this.last = newNode;
+        if (head == null) {
+            this.head = newNode;
+            this.size = 0;
+        }
+        else
+            tmp.next = newNode;
+        this.size++;
+        return 0;
     }
 
     @Override
-    public void removeTransactionById(UUID id) {
-
+    public Integer removeTransactionById(String id) {
+        if (head == null)
+            return -1;
+        for (Node tmp = head; tmp != null; tmp = tmp.next) {
+            if (tmp.val.getId().equals(id)){
+                removeNode(tmp);
+                return 0;
+            }
+        }
+        throw new TransactionNotFoundException();
     }
 
     @Override
     public Transaction[] toArray() {
-        return new Transaction[0];
+        if (head == null)
+                return null;
+        Transaction [] arr = new Transaction[this.size];
+        int i = 0;
+        for (Node tmp = head; tmp != null; tmp = tmp.next){
+            arr[i] = tmp.val;
+            i++;
+        }
+        return arr;
     }
+
+    private void removeNode(Node n) {
+        if (n == null)
+            return;
+        Node prev = n.prev;
+        Node next = n.next;
+        if (prev == null)
+            this.head = next;
+        else{
+            prev.next = next;
+            n.prev = null;
+        }
+        if (next == null)
+            this.last = prev;
+        else{
+            next.prev = prev;
+            n.next = null;
+        }
+        n.val = null;
+        this.size--;
+    }
+    public class TransactionNotFoundException extends RuntimeException{}
 }
