@@ -1,25 +1,33 @@
 package day02.ex00;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Program {
 
     public static void main(String[] args) {
         Map<String, String> map = new HashMap<>();
-        String signaturesFile = "";
-        String testFile = "/";
         StringBuilder myStr = new StringBuilder();
+        String signaturesPathFile = "signatures.txt";
+        String testFile = "/";
+
+        FileInputStream readSignFile = null;
+        FileInputStream readInputFile = null;
+        FileOutputStream writeResult  = null;
+        String inputFile = null;
+
+        while (!inputFile.equals("42")){
+            inputFile = new Scanner(System.in).nextLine();
+        }
 
         try {
-            FileInputStream file = new FileInputStream(signaturesFile);
-            while (file.available() > 0) {
-                char c = (char)file.read();
+            readSignFile = new FileInputStream(signaturesPathFile);
+            while (readSignFile.available() > 0) {
+                char c = (char)readSignFile.read();
                 if (c == '\n'){
                     String [] tmp = myStr.toString().split(",");
                     if (tmp.length > 1)
@@ -37,26 +45,35 @@ public class Program {
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 System.out.printf("%s, %s bit: %d\n", entry.getKey(), entry.getValue(), entry.getValue().length());
             }
-            file.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            FileInputStream readFile = new FileInputStream(testFile);
+            readInputFile = new FileInputStream(inputFile);
             for (int i = 0; i < 10; i++) {
-                if(readFile.available() == 0)
+                if(readInputFile.available() == 0)
                     break;
-                myStr.append(String.format("%02X ", readFile.read()));
+                myStr.append(String.format("%02X ", readInputFile.read()));
             }
             System.out.println(myStr);
             for (Map.Entry<String, String> entry : map.entrySet()) {
-                if (myStr.toString().startsWith(entry.getValue()))
+                if (myStr.toString().startsWith(entry.getValue())) {
+                    writeResult = new FileOutputStream("result.txt", true);
+                    writeResult.write(entry.getKey().getBytes(StandardCharsets.UTF_8));
                     System.out.println(entry.getKey());
+                }
             }
-            readFile.close();
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+        try {
+            if (readSignFile != null)
+                readSignFile.close();
+            if (readInputFile != null)
+                readInputFile.close();
+        }catch (IOException ex){
+            ex.printStackTrace();
         }
     }
 }
