@@ -12,11 +12,12 @@ public class Program {
 
     public static void main(String[] args) {
         Map<String, String> map = new HashMap<>();
-        String readLine = "/Users/lmother/IdeaProjects/ex00/src/day02/ex00/signatures.txt";
+        String signaturesFile = "/home/green_programmer/project_school/piscineJava/day02/ex00/signatures.txt";
+        String testFile = "/home/green_programmer/project_school/testFiles/ico.ico";
         StringBuilder myStr = new StringBuilder();
 
         try {
-            FileInputStream file = new FileInputStream(readLine);
+            FileInputStream file = new FileInputStream(signaturesFile);
             while (file.available() > 0) {
                 char c = (char)file.read();
                 if (c == '\n'){
@@ -42,14 +43,14 @@ public class Program {
         }
 
         try {
-            FileInputStream readFile = new FileInputStream("/Users/lmother/Desktop/testfiles/gif.gif");
-            for (int i = 0; i < 8; i++) {
+            FileInputStream readFile = new FileInputStream(testFile);
+            for (int i = 0; i < 10; i++) {
+                if(readFile.available() == 0)
+                    break;
                 myStr.append(String.format("%02X ", readFile.read()));
             }
             System.out.println(myStr);
             for (Map.Entry<String, String> entry : map.entrySet()) {
-                int sizeBits = entry.getValue().length();
-                System.out.println(myStr.indexOf(entry.getValue()));
                 if (myStr.toString().startsWith(entry.getValue()))
                     System.out.println(entry.getKey());
             }
@@ -57,8 +58,5 @@ public class Program {
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }
-
-
-
     }
 }
