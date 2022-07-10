@@ -12,8 +12,8 @@ public class Program {
 
     public static void main(String[] args) {
         Map<String, String> map = new HashMap<>();
-        String signaturesFile = "/home/green_programmer/project_school/piscineJava/day02/ex00/signatures.txt";
-        String testFile = "/home/green_programmer/project_school/testFiles/ico.ico";
+        String signaturesFile = "";
+        String testFile = "/";
         StringBuilder myStr = new StringBuilder();
 
         try {
