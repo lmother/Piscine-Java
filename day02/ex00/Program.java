@@ -1,6 +1,8 @@
 package day02.ex00;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -10,7 +12,7 @@ public class Program {
     public static void main(String[] args) throws IOException {
         Map<String, String> map = new HashMap<>();
         StringBuilder myStr = new StringBuilder();
-        String signaturesPathFile = "signatures.txt";
+        String signaturesPathFile = "/Users/lmother/Desktop/piscine/day02/ex00/signatures.txt";
 
         FileInputStream readSignFile = null;
         FileInputStream readInputFile = null;
@@ -35,7 +37,7 @@ public class Program {
                 map.put(tmp[0], tmp[1].trim());
             myStr.delete(0, myStr.length());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         if (readSignFile != null)
             readSignFile.close();
@@ -60,7 +62,7 @@ public class Program {
                 }
                 myStr.delete(0, myStr.length());
             } catch (IOException ex) {
-                ex.printStackTrace();
+                System.out.println(ex.getMessage());
             }
             inputFileName = in.nextLine();
         }
