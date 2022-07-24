@@ -48,6 +48,11 @@ hs_err_pid*
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+.idea/compiler.xml
+.idea/dataSources.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/sqldialects.xml
 
 # Gradle
 .idea/**/gradle.xml
